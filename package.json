@@ -1,0 +1,35 @@
+{
+  "name": "marketmate",
+  "version": "0.1.0",
+  "description": "A mobile platform connecting travelers and shoppers to trusted local agents for guided or proxy shopping experiences worldwide",
+  "private": true,
+  "workspaces": [
+    "backend"
+  ],
+  "scripts": {
+    "backend:dev": "cd backend && npm run dev",
+    "backend:start": "cd backend && npm start",
+    "backend:install": "cd backend && npm install",
+    "mobile:run": "cd mobile && flutter run",
+    "mobile:build": "cd mobile && flutter build",
+    "mobile:test": "cd mobile && flutter test",
+    "setup": "npm run backend:install",
+    "postinstall": "echo 'Backend dependencies installed. For mobile, run: cd mobile && flutter pub get'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Barde-S/market-meet"
+  },
+  "keywords": [
+    "shopping",
+    "marketplace",
+    "travel",
+    "commerce",
+    "gig-economy",
+    "flutter",
+    "firebase",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "MIT"
+}
