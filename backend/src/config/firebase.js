@@ -15,6 +15,17 @@ function initializeFirebase() {
       return;
     }
 
+    // Skip Firebase in test/demo mode if no credentials
+    if (process.env.NODE_ENV === 'development' && !process.env.FIREBASE_SERVICE_ACCOUNT) {
+      try {
+        require('./serviceAccountKey.json');
+      } catch (e) {
+        logger.warn('Firebase credentials not found. Running in demo mode without Firebase.');
+        logger.warn('To use Firebase: Follow docs/FIREBASE_SETUP.md');
+        return;
+      }
+    }
+
     // Initialize with service account
     // In production, use environment variables or secret manager
     const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
@@ -33,7 +44,11 @@ function initializeFirebase() {
     logger.info('Firebase Admin SDK initialized successfully');
   } catch (error) {
     logger.error('Error initializing Firebase Admin SDK:', error);
-    throw error;
+    if (process.env.NODE_ENV === 'development') {
+      logger.warn('Continuing in demo mode. Some features will not work.');
+    } else {
+      throw error;
+    }
   }
 }
 
