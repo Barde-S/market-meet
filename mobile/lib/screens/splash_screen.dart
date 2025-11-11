@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
+import 'auth/login_screen.dart';
+import 'home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,11 +24,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Check authentication status and navigate accordingly
     if (mounted) {
-      // TODO: Navigate based on auth status
-      // For now, just showing a placeholder
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Welcome to MarketMate!'),
+      final authProvider = context.read<AuthProvider>();
+
+      // Check if user is already logged in
+      final isAuthenticated = authProvider.user != null;
+
+      // Navigate to appropriate screen
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => isAuthenticated ? const HomeScreen() : const LoginScreen(),
         ),
       );
     }
